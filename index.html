@@ -1,0 +1,126 @@
+<html lang="en">
+	<head>
+		<title>AlpineJs</title>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<!-- Tailwind CSS -->
+		<link
+			href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+			rel="stylesheet"
+		/>
+		<!-- Alpine.js -->
+		<script
+			defer
+			src="https://unpkg.com/alpinejs@3.5.0/dist/cdn.min.js"
+		></script>
+		<script
+			src="https://kit.fontawesome.com/bd858861be.js"
+			crossorigin="anonymous"
+		></script>
+	</head>
+	<body>
+		<h1
+			class="text-center text-4xl pt-10"
+			x-data="{ message: 'I ❤️ Alpine 🏔️' }"
+			x-text="message"
+		></h1>
+		<div x-data="inputForm()" class="text-center p-20">
+			<div class="flex-col">
+				<div class="p-5">
+					<input
+						type="text"
+						placeholder="enter the cityname 🏙️"
+						x-model="name"
+						class="border border-gray-400 rounded text-gray-600 text-center"
+					/>
+				</div>
+				<div class="p-5">
+					<input
+						type="text"
+						placeholder="enter the country name 🌍"
+						x-model="country"
+						class="border border-gray-400 rounded text-gray-600 text-center"
+					/>
+				</div>
+				<div class="p-5">
+					<input
+						type="number"
+						placeholder="enter the population 👪"
+						x-model="population"
+						class="border border-gray-400 rounded text-gray-600 text-center"
+					/>
+				</div>
+				<div>
+					<button @click="getData()" class="p-2 bg-gray-300 rounded m-10">
+						Press 🔥
+					</button>
+				</div>
+				<table class="table-auto" x-ref="dataTable" x-init="loadData()">
+					<thead>
+						<tr>
+							<th>City Name 🏙️</th>
+							<th>Country Name 🌍</th>
+							<th>Population 👪</th>
+							<th>Delete</th>
+						</tr>
+					</thead>
+					<tbody>
+						<template x-for="item in items">
+							<tr>
+								<td x-text="item.name" x-model=""></td>
+								<td x-text="item.country"></td>
+								<td x-text="item.population"></td>
+								<td>
+									<i class="far fa-trash-alt" @click="deletItem(item.name)"></i>
+								</td>
+							</tr>
+						</template>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<script>
+			function inputForm() {
+				return {
+					name: '',
+					country: '',
+					population: '',
+					items: [],
+					getData() {
+						const city = {
+							name: this.name,
+							country: this.country,
+							population: this.population,
+						};
+
+						sessionStorage.setItem('!' + this.name, JSON.stringify(city));
+
+						this.items.push(city);
+					},
+					loadData() {
+						for (let i = 0; i < sessionStorage.length; i++) {
+							let data = JSON.parse(
+								sessionStorage.getItem(sessionStorage.key(i))
+							);
+							console.log(data);
+							if (
+								sessionStorage.key(i).startsWith('!') &&
+								this.items.includes(data) == false
+							) {
+								this.items.push(data);
+							} else {
+								console.log('bruh!');
+							}
+						}
+					},
+					deletItem(key) {
+						sessionStorage.removeItem('!' + key);
+						this.items = this.items.filter(item => item.name !== key);
+						// location.reload();
+					},
+				};
+			}
+		</script>
+	</body>
+</html>
