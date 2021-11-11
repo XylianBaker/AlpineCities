@@ -31,7 +31,19 @@
 						type="text"
 						placeholder="enter the cityname 🏙️"
 						x-model="name"
-						class="border border-gray-400 rounded text-gray-600 text-center"
+						class="
+							text-sm
+							sm:text-base
+							relative
+							w-auto
+							border
+							rounded
+							placeholder-gray-400
+							focus:border-indigo-400 focus:outline-none
+							py-2
+							pr-2
+							pl-12
+						"
 					/>
 				</div>
 				<div class="p-5">
@@ -39,7 +51,19 @@
 						type="text"
 						placeholder="enter the country name 🌍"
 						x-model="country"
-						class="border border-gray-400 rounded text-gray-600 text-center"
+						class="
+							text-sm
+							sm:text-base
+							relative
+							w-auto
+							border
+							rounded
+							placeholder-gray-400
+							focus:border-indigo-400 focus:outline-none
+							py-2
+							pr-2
+							pl-12
+						"
 					/>
 				</div>
 				<div class="p-5">
@@ -47,31 +71,82 @@
 						type="number"
 						placeholder="enter the population 👪"
 						x-model="population"
-						class="border border-gray-400 rounded text-gray-600 text-center"
+						class="
+							text-sm
+							sm:text-base
+							relative
+							w-auto
+							border
+							rounded
+							placeholder-gray-400
+							focus:border-indigo-400 focus:outline-none
+							py-2
+							pr-2
+							pl-12
+						"
 					/>
 				</div>
 				<div>
-					<button @click="getData()" class="p-2 bg-gray-300 rounded m-10">
+					<button
+						@click="getData()"
+						class="
+							bg-white
+							text-gray-800
+							font-bold
+							rounded
+							border-b-2 border-green-500
+							hover:border-green-600 hover:bg-green-500 hover:text-white
+							shadow-md
+							py-2
+							px-6
+							inline-flex
+							items-center
+							m-5
+						"
+					>
 						Press 🔥
 					</button>
 				</div>
-				<table class="table-auto" x-ref="dataTable" x-init="loadData()">
-					<thead>
+				<table
+					class="
+						table-auto
+						mr-auto
+						ml-auto
+						text-gray-400
+						border-separate
+						space-y-6
+						text-sm
+					"
+					x-init="loadData()"
+				>
+					<thead class="bg-gray-800 text-gray-300">
 						<tr>
-							<th>City Name 🏙️</th>
-							<th>Country Name 🌍</th>
-							<th>Population 👪</th>
-							<th>Delete</th>
+							<th class="px-4 py-3">City Name 🏙️</th>
+							<th class="px-4 py-3">Country Name 🌍</th>
+							<th class="px-4 py-3">Population 👪</th>
+							<th class="px-4 py-3">Delete</th>
 						</tr>
 					</thead>
 					<tbody>
 						<template x-for="item in items">
-							<tr>
-								<td x-text="item.name" x-model=""></td>
-								<td x-text="item.country"></td>
-								<td x-text="item.population"></td>
-								<td>
-									<i class="far fa-trash-alt" @click="deletItem(item.name)"></i>
+							<tr class="bg-gray-800">
+								<td
+									x-text="item.name"
+									class="p-3 text-gray-400 text-center"
+								></td>
+								<td
+									x-text="item.country"
+									class="p-3 text-gray-400 text-center"
+								></td>
+								<td
+									x-text="item.population"
+									class="p-3 text-gray-400 text-center"
+								></td>
+								<td class="text-center">
+									<i
+										class="far fa-trash-alt text-red-400"
+										@click="deletItem(item.name)"
+									></i>
 								</td>
 							</tr>
 						</template>
@@ -95,7 +170,6 @@
 						};
 
 						sessionStorage.setItem('!' + this.name, JSON.stringify(city));
-
 						this.items.push(city);
 					},
 					loadData() {
